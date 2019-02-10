@@ -7,6 +7,7 @@ app = express();
 
 //Connect to mongodb
 mongoose.connect('mongodb://localhost/manutd', { useNewUrlParser: true });
+mongoose.set('useFindAndModify', false);
 
 //body-parser for json data
 app.use(bodyParser.json());

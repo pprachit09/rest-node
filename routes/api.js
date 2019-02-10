@@ -21,8 +21,13 @@ router.delete('/manutd/:id', function(req, res, next){
     }).catch(next);
 })
 
-router.put('/manutd/:id', function(req, res){
-    res.send('put it');
+router.put('/manutd/:id', function(req, res, next){
+    console.log(req.params.id);
+    manutd.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
+        manutd.findOne({_id: req.params.id}).then(function(player){
+            res.send(player);
+        });
+    });    
 });
 
 module.exports = router
