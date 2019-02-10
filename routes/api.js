@@ -7,11 +7,11 @@ router.get('/manutd', function(req, res){
     res.send('got it');
 });
 
-router.post('/manutd', function(req, res){
+router.post('/manutd', function(req, res, next){
     console.log(req.body);
     manutd.create(req.body).then(function(player){
         res.send(player);
-    });
+    }).catch(next);
 });
 
 router.delete('/manutd/:id', function(req, res){
