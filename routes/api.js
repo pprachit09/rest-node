@@ -6,6 +6,7 @@ router.get('/api', function(req, res){
 });
 
 router.post('/api', function(req, res){
+    console.log(req.body);
     res.send('post it');
 });
 
