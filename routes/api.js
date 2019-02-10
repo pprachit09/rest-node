@@ -1,20 +1,24 @@
 const express = require('express');
 var router = express.Router();
+//import manutd schema
+const manutd = require('../models/manutd');
 
-router.get('/api', function(req, res){
+router.get('/manutd', function(req, res){
     res.send('got it');
 });
 
-router.post('/api', function(req, res){
+router.post('/manutd', function(req, res){
     console.log(req.body);
-    res.send('post it');
+    manutd.create(req.body).then(function(player){
+        res.send(player);
+    });
 });
 
-router.delete('/api/:id', function(req, res){
+router.delete('/manutd/:id', function(req, res){
     res.send('delete it');
 });
 
-router.put('/api/:id', function(req, res){
+router.put('/manutd/:id', function(req, res){
     res.send('put it');
 });
 

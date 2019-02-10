@@ -1,14 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 //set up express app
 app = express();
+
+//Connect to mongodb
+mongoose.connect('mongodb://localhost/manutd', { useNewUrlParser: true });
 
 //body-parser for json data
 app.use(bodyParser.json());
 
 //api routes
-app.use('/manutd', require('./routes/api'));
+app.use('/api', require('./routes/api'));
 
 //Listen at port 8020
 app.listen(8020, function(){
