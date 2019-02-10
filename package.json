@@ -1,0 +1,29 @@
+{
+  "name": "rest-node",
+  "version": "1.0.0",
+  "description": "rest api's with node, express and mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pprachit09/rest-node.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "REST"
+  ],
+  "author": "Prachit Patil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pprachit09/rest-node/issues"
+  },
+  "homepage": "https://github.com/pprachit09/rest-node#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "pug": "^2.0.3"
+  }
+}
