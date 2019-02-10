@@ -14,9 +14,12 @@ router.post('/manutd', function(req, res, next){
     }).catch(next);
 });
 
-router.delete('/manutd/:id', function(req, res){
-    res.send('delete it');
-});
+router.delete('/manutd/:id', function(req, res, next){
+    console.log(req.params.id);
+    manutd.findByIdAndDelete({_id: req.params.id}).then(function(player){
+        res.send(player);
+    }).catch(next);
+})
 
 router.put('/manutd/:id', function(req, res){
     res.send('put it');
