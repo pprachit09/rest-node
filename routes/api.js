@@ -4,15 +4,15 @@ var router = express.Router();
 const manutd = require('../models/manutd');
 
 router.get('/manutd', function(req, res){
-        var query = {};
-        for(var key in req.query){
-            console.log(req.query[key]);
-            req.query[key] !== "" ? query[key] = req.query[key] : null;
-        }
-        console.log(query);
-        manutd.find(query).then(function(players){
-            res.send(players);
-        });
+    console.log(req.headers.email);
+    var query = {};
+    for(var key in req.query){
+        console.log(req.query[key]);
+        req.query[key] !== "" ? query[key] = req.query[key] : null;
+    }
+    manutd.find(query).then(function(players){
+        res.send(players);
+    });
 });
 
 router.post('/manutd', function(req, res, next){
