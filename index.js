@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const manutd = require('./models/manutd');
+const hat = require('hat');
+const user = require('./models/user');
 
 //set up express app
 app = express();
@@ -19,6 +22,7 @@ app.use('/api', require('./routes/api'));
 app.use(function(error, req, res, next){
     res.status(422).send({error: error.message});
 });
+var id = hat();
 
 //Listen at port 8020
 app.listen(8020, function(){
