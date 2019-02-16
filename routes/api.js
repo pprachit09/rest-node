@@ -17,7 +17,7 @@ function usercheck(name, apikey){
                 resolve()
             }
         }).catch(function(error){
-            reject('incorrect username and apikey')
+            reject('incorrect username or apikey')
         })
     });
 };
@@ -43,10 +43,17 @@ router.get('/manutd', function(req, res){
 });
 
 router.post('/manutd', function(req, res, next){
+    var name = req.headers.name;
+    var apikey = req.headers.apikey;
+    var promise =usercheck(name, apikey);
     console.log(req.body);
-    manutd.create(req.body).then(function(player){
-        res.send(player);
-    }).catch(next);
+    promise.then(function(){
+        manutd.create(req.body).then(function(player){
+            res.send(player);
+        }).catch(next);
+    }).catch(function(error){
+        res.status(404).send({error: error});
+    });
 });
 
 router.delete('/manutd/:id', function(req, res, next){
