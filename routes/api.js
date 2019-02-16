@@ -17,7 +17,7 @@ function usercheck(name, apikey){
                 resolve()
             }
         }).catch(function(error){
-            reject('incorrect username and apikey')
+            reject('incorrect username or apikey')
         })
     });
 };
@@ -43,26 +43,49 @@ router.get('/manutd', function(req, res){
 });
 
 router.post('/manutd', function(req, res, next){
+    var name = req.headers.name;
+    var apikey = req.headers.apikey;
+    var promise =usercheck(name, apikey);
     console.log(req.body);
-    manutd.create(req.body).then(function(player){
-        res.send(player);
-    }).catch(next);
+    promise.then(function(){
+        manutd.create(req.body).then(function(player){
+            res.send(player);
+        }).catch(next);
+    }).catch(function(error){
+        res.status(404).send({error: error});
+    });
 });
 
 router.delete('/manutd/:id', function(req, res, next){
-    console.log(req.params.id);
-    manutd.findByIdAndDelete({_id: req.params.id}).then(function(player){
-        res.send(player);
-    }).catch(next);
+    var name = req.headers.name;
+    var apikey = req.headers.apikey;
+    var promise =usercheck(name, apikey);
+    promise.then(function(){
+        console.log(req.params.id);
+        manutd.findByIdAndDelete({_id: req.params.id}).then(function(player){
+            res.send(player);
+        }).catch(next);    
+    }).catch(function(error){
+        res.status(404).send({error: error});
+    });
 })
 
 router.put('/manutd/:id', function(req, res, next){
-    console.log(req.params.id);
-    manutd.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
-        manutd.findOne({_id: req.params.id}).then(function(player){
-            res.send(player);
-        });
-    });    
+    var name = req.headers.name;
+    var apikey = req.headers.apikey;
+    var promise =usercheck(name, apikey);
+    promise.then(function(){
+        console.log(req.params.id);
+        manutd.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
+            manutd.findOne({_id: req.params.id}).then(function(player){
+                res.send(player);
+            });
+        }).catch(function(error){
+            res.status(404).send({error:'Invalid identifier'});
+        })    
+    }).catch(function(error){
+        res.status(404).send({error: error});
+    });
 });
 
 module.exports = router
