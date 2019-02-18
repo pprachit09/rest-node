@@ -8,6 +8,9 @@ const user = require('./models/user');
 //set up express app
 app = express();
 
+//To serve static files
+app.use(express.static('public'));
+
 //Connect to mongodb
 mongoose.connect('mongodb://localhost/manutd', { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false);
@@ -23,6 +26,14 @@ app.use(function(error, req, res, next){
     res.status(422).send({error: error.message});
 });
 var id = hat();
+
+//view engine
+app.set('view engine', 'pug');
+
+//homepage 
+app.get('/', function(req, res){
+    res.render('homepage');
+});
 
 //Listen at port 8020
 app.listen(8020, function(){
